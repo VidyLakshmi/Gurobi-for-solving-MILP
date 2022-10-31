@@ -1,0 +1,43 @@
+#  maximize
+#        x + y + 2 z
+#  subject to
+#        x + 2 y + 3 z <= 4
+#        x + y >= 1
+#        x, y, z binary
+
+# Import model from Docplex package
+
+from docplex.mp.model import model
+
+# Create an optimization model
+
+milp_model = Model (name = "MILP")
+
+# Add Decision variables
+
+x = milp_model.binary_var (name = 'x')
+y = milp_model.continuous_var (name = 'y', lb = 0)
+z = milp_model.integer_var (name = 'z', lb =0)
+
+# Add constraints
+# Add constraint: x + 2y + 3z <= 4
+
+c1 = milp_model.add_constraint (x + 2 * y + 3 * z < = 4, ctname = "c1")
+
+# Add constraint: x + y >= 1
+
+c2 = milp_model.add_constraint (x + y > = 1, ctname = "c2")
+
+# Define the objective function
+
+obj_fn = x + y + 2 * z
+milp_model.set_objective ('max' , objfn)
+milp_model.print_information()
+
+# Solve the model
+
+milp_model.solve()
+
+# Output the results
+
+milp_model.print_solution()
