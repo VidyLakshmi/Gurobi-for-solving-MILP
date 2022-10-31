@@ -11,7 +11,7 @@ from gurobipy import GRB
 
 try:
 
-    # Create a new model
+    # Create a Gurobi model
     m = gp.Model("mip1")
 
     # Create variables
